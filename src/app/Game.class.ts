@@ -1,16 +1,30 @@
 import { Player } from "./Player.class";
 
 export class Game {
-  activePlayers: Player[];
-  allPlayers: Player[];
-  currentRound: string;
-  isRoundStarted: boolean;
+  private activePlayers: Player[];
+  private allPlayers: Player[];
+  private currentRound: string;
+  private isRoundStarted: boolean;
+  private blindAmount: Blind = {
+    smallBlind: 5,
+    bigBlind: 10
+  };
+  private focusedPlayer: Player;
 
   constructor(allPlayers: Player[]) {
     this.activePlayers = allPlayers;
   }
 
-  setRoundStarted(_isRoundStarted: boolean): void {
+  public setRoundStarted(_isRoundStarted: boolean): void {
     this.isRoundStarted = _isRoundStarted;
   }
+
+  public getBlindAmount(): Blind {
+    return this.blindAmount;
+  }
+}
+
+interface Blind {
+  smallBlind: number;
+  bigBlind: number;
 }

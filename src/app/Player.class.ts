@@ -11,11 +11,23 @@ export class Player {
     this.bgColor = _co;
   }
 
-  setRole(_ro: string) {
+  public setRole(_ro: string) {
     this.role = _ro;
   }
 
-  setIsHost(_isH: boolean) {
+  public getRole(): string {
+    return this.role;
+  }
+
+  public setCashBalance(_cb: number): void {
+    this.cashBalance = _cb;
+  }
+
+  public getCashBalance(): number {
+    return this.cashBalance;
+  }
+
+  public setIsHost(_isH: boolean) {
     this.isHost = _isH;
   }
 }

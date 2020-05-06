@@ -7,6 +7,12 @@
     <br>
     {{player.role}}
     <br>
+    <input>
+    <br>
+    <button>Check</button>
+    <button>Bet/Raise</button>
+    <button>Fold</button>
+    <br>
     <button *ngIf="player.isHost" [disabled]="game.isRoundStarted" (click)="onStartRoundClick()">
       Start Round</button>
   </div>

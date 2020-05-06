@@ -40,6 +40,20 @@ export class AppComponent implements OnInit {
 
   onStartRoundClick(): void {
     this.game.setRoundStarted(true);
+
+    const smallBlindPlayer = this.players.find(player => {
+      return player.getRole() === Role.SmallBline;
+    });
+
+    smallBlindPlayer.setCashBalance(smallBlindPlayer.getCashBalance() - this.game.getBlindAmount().smallBlind);
+
+    const bigBlindPlayer = this.players.find(player => {
+      return player.getRole() === Role.BigBlind;
+    });
+
+    bigBlindPlayer.setCashBalance(bigBlindPlayer.getCashBalance() - this.game.getBlindAmount().bigBlind);
+
+
   }
 }
 
