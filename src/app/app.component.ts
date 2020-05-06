@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
     const g = new Game(this.players);
     this.game = g;
 
-
     this.initRole();
     console.log(this.players);
     console.log(this.game);
@@ -35,13 +34,13 @@ export class AppComponent implements OnInit {
     this.players[0].setRole(Role.Delear);
     this.players[1].setRole(Role.SmallBline);
     this.players[2].setRole(Role.BigBlind);
+    this.players[3].setRole(Role.Player);
 
     this.game.setSmallBlindPlayer(this.players[1]);
     this.game.setBigBlindPlayer(this.players[2]);
 
     this.game.setCurrentPlayer(this.players[1]);
     this.game.setNextPlayer(this.players[2]);
-    
   }
 
   initHost(): void {
@@ -72,14 +71,20 @@ export class AppComponent implements OnInit {
     );
 
     console.clear();
-    console.log(this.game)
+    console.log(this.game);
+    console.log(this.players);
+  }
+
+  onCheckClick(_p: Player): void {
+    this.game.getNexrPlayer(_p);
   }
 }
 
 enum Role {
   Delear = "D",
   SmallBline = "SB",
-  BigBlind = "BB"
+  BigBlind = "BB",
+  Player = "P"
 }
 
 enum UserColorShaeds {

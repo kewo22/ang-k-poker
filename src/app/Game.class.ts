@@ -56,7 +56,7 @@ export class Game {
   public setSmallBlindPlayer(_sbp: Player): void {
     this.blindPlayers.smallBlind = _sbp;
   }
-  
+
   public getSmallBlindPlayer(): Player {
     return this.blindPlayers.smallBlind;
   }
@@ -68,6 +68,15 @@ export class Game {
   public getBigBlindPlayer(): Player {
     return this.blindPlayers.bigBlind;
   }
+
+  public getNexrPlayer(_p: Player): Player {
+    const i = this.activePlayers.findIndex(player => {
+      return player.id === _p.id;
+    });
+
+    return this.activePlayers[i+1];
+  }
+
 }
 
 interface BlindAmount {

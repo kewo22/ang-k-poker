@@ -7,7 +7,7 @@ export class Player {
   private bgColor: string = "";
 
   constructor(_name: string, _cb: number, _co: string) {
-    this.id = _name+(Math.random()*10000).toFixed().toString();
+    this.id = _name + (Math.random() * 10000).toFixed().toString();
     this.name = _name;
     this.cashBalance = _cb;
     this.bgColor = _co;
@@ -32,4 +32,5 @@ export class Player {
   public setIsHost(_isH: boolean) {
     this.isHost = _isH;
   }
+
 }
