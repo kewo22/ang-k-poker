@@ -17,6 +17,9 @@ export class Game {
   private previousPlayer: Player;
   private nextPlayer: Player;
 
+  private roundBetAmount: number;
+  private totalPotAmount: number = 0;
+
   constructor(allPlayers: Player[]) {
     this.activePlayers = allPlayers;
   }
@@ -74,9 +77,20 @@ export class Game {
       return player.id === _p.id;
     });
 
-    return this.activePlayers[i+1];
+    if (this.activePlayers[i + 1]) {
+      return this.activePlayers[i + 1];
+    } else {
+      return this.activePlayers[0];
+    }
   }
 
+  getTotalPotAmount(): number {
+    return this.totalPotAmount;
+  }
+
+  setTotalPotAmount(_tpa): void {
+    this.totalPotAmount += _tpa;
+  }
 }
 
 interface BlindAmount {

@@ -16,7 +16,8 @@ export class AppComponent implements OnInit {
     const p2 = new Player("FEB", 1000, UserColorShaeds.Colour2);
     const p3 = new Player("MAR", 1000, UserColorShaeds.Colour3);
     const p4 = new Player("APR", 1000, UserColorShaeds.Colour4);
-    this.players.push(p1, p2, p3, p4);
+    const p5 = new Player("MAY", 1000, UserColorShaeds.Colour5);
+    this.players.push(p1, p2, p3, p4, p5);
 
     console.log(this.players);
 
@@ -35,6 +36,7 @@ export class AppComponent implements OnInit {
     this.players[1].setRole(Role.SmallBline);
     this.players[2].setRole(Role.BigBlind);
     this.players[3].setRole(Role.Player);
+    this.players[4].setRole(Role.Player);
 
     this.game.setSmallBlindPlayer(this.players[1]);
     this.game.setBigBlindPlayer(this.players[2]);
@@ -54,17 +56,17 @@ export class AppComponent implements OnInit {
       return player.getRole() === Role.SmallBline;
     });
 
-    this.game.setCurrentPlayer(smallBlindPlayer);
-
     smallBlindPlayer.setCashBalance(
       smallBlindPlayer.getCashBalance() - this.game.getBlindAmount().smallBlind
     );
+
+    this.game.setTotalPotAmount(this.game.getBlindAmount().smallBlind);
 
     const bigBlindPlayer = this.players.find(player => {
       return player.getRole() === Role.BigBlind;
     });
 
-    this.game.setNextPlayer(bigBlindPlayer);
+    this.game.setTotalPotAmount(this.game.getBlindAmount().bigBlind);
 
     bigBlindPlayer.setCashBalance(
       bigBlindPlayer.getCashBalance() - this.game.getBlindAmount().bigBlind
@@ -76,7 +78,15 @@ export class AppComponent implements OnInit {
   }
 
   onCheckClick(_p: Player): void {
-    this.game.getNexrPlayer(_p);
+    this.game.setPreviousPlayer(this.game.getCurrentPlayer());
+    this.game.setCurrentPlayer(this.game.getNextPlayer());
+    this.game.setNextPlayer(
+      this.game.getNexrPlayer(this.game.getCurrentPlayer())
+    );
+
+    console.clear();
+    console.log(this.game);
+    console.log(this.players);
   }
 }
 
