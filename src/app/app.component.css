@@ -1,6 +1,22 @@
+:host {
+  height: 97vh;
+  display: block;
+}
+
 section{
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+
+  height: 100%;
+}
+
+section .palyer{
+  height: 100%;
+
+  flex-grow: 1;
+  text-align: center;
+  margin: 0 5px;
+
 }

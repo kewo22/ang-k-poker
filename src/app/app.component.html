@@ -1,9 +1,14 @@
 <section>
 
-  <div *ngFor="let player of players">
+  <div class="palyer" *ngFor="let player of players" [style.background-color]="player.bgColor">
     {{player.name}}
     <br>
     {{player.cashBalance}}
+    <br>
+    {{player.role}}
+    <br>
+    <button *ngIf="player.isHost" [disabled]="game.isRoundStarted" (click)="onStartRoundClick()">
+      Start Round</button>
   </div>
 
 </section>
