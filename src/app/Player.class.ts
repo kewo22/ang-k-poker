@@ -1,4 +1,5 @@
 export class Player {
+  private id: string = "";
   private name: string = "";
   private cashBalance: number = 0;
   private role: string = "";
@@ -6,6 +7,7 @@ export class Player {
   private bgColor: string = "";
 
   constructor(_name: string, _cb: number, _co: string) {
+    this.id = _name+(Math.random()*10000).toFixed().toString();
     this.name = _name;
     this.cashBalance = _cb;
     this.bgColor = _co;

@@ -15,23 +15,33 @@ export class AppComponent implements OnInit {
     const p1 = new Player("JAN", 1000, UserColorShaeds.Colour1);
     const p2 = new Player("FEB", 1000, UserColorShaeds.Colour2);
     const p3 = new Player("MAR", 1000, UserColorShaeds.Colour3);
-    this.players.push(p1, p2, p3);
+    const p4 = new Player("APR", 1000, UserColorShaeds.Colour4);
+    this.players.push(p1, p2, p3, p4);
 
     console.log(this.players);
 
-    this.initRole();
     this.initHost();
 
     const g = new Game(this.players);
     this.game = g;
 
+
+    this.initRole();
     console.log(this.players);
+    console.log(this.game);
   }
 
   initRole(): void {
     this.players[0].setRole(Role.Delear);
     this.players[1].setRole(Role.SmallBline);
     this.players[2].setRole(Role.BigBlind);
+
+    this.game.setSmallBlindPlayer(this.players[1]);
+    this.game.setBigBlindPlayer(this.players[2]);
+
+    this.game.setCurrentPlayer(this.players[1]);
+    this.game.setNextPlayer(this.players[2]);
+    
   }
 
   initHost(): void {
@@ -41,19 +51,28 @@ export class AppComponent implements OnInit {
   onStartRoundClick(): void {
     this.game.setRoundStarted(true);
 
-    const smallBlindPlayer = this.players.find(player => {
+    const smallBlindPlayer: Player = this.players.find(player => {
       return player.getRole() === Role.SmallBline;
     });
 
-    smallBlindPlayer.setCashBalance(smallBlindPlayer.getCashBalance() - this.game.getBlindAmount().smallBlind);
+    this.game.setCurrentPlayer(smallBlindPlayer);
+
+    smallBlindPlayer.setCashBalance(
+      smallBlindPlayer.getCashBalance() - this.game.getBlindAmount().smallBlind
+    );
 
     const bigBlindPlayer = this.players.find(player => {
       return player.getRole() === Role.BigBlind;
     });
 
-    bigBlindPlayer.setCashBalance(bigBlindPlayer.getCashBalance() - this.game.getBlindAmount().bigBlind);
+    this.game.setNextPlayer(bigBlindPlayer);
 
+    bigBlindPlayer.setCashBalance(
+      bigBlindPlayer.getCashBalance() - this.game.getBlindAmount().bigBlind
+    );
 
+    console.clear();
+    console.log(this.game)
   }
 }
 

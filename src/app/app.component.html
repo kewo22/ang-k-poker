@@ -1,7 +1,7 @@
 <section>
 
   <div class="palyer" *ngFor="let player of players" [style.background-color]="player.bgColor">
-    {{player.name}}
+    {{player.name}} - {{player.id}}
     <br>
     {{player.cashBalance}}
     <br>
@@ -9,9 +9,9 @@
     <br>
     <input>
     <br>
-    <button>Check</button>
-    <button>Bet/Raise</button>
-    <button>Fold</button>
+    <button [disabled]="game.getCurrentPlayer().id != player.id">Check</button>
+    <button [disabled]="game.getCurrentPlayer().id != player.id">Bet/Raise</button>
+    <button [disabled]="game.getCurrentPlayer().id != player.id">Fold</button>
     <br>
     <button *ngIf="player.isHost" [disabled]="game.isRoundStarted" (click)="onStartRoundClick()">
       Start Round</button>
