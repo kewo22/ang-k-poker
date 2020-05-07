@@ -19,6 +19,11 @@
       Start Round
     </button>
 
+		<button
+    *ngIf="player.isHost" [disabled]="!game.getRoundStarted()" (click)="onEndRoundClick()">
+      End Round
+    </button>
+
 
 	</div>
 

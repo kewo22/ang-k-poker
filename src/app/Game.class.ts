@@ -96,11 +96,15 @@ export class Game {
     this.totalPotAmount += _tpa;
   }
 
+  resetPotAmount(): void {
+    this.totalPotAmount = 0;
+  }
+
   setCurrentRound(_cr: string): void {
     this.currentRound = _cr;
   }
 
-  getCorrentRound(): string {
+  getCurrentRound(): string {
     return this.currentRound;
   }
 }

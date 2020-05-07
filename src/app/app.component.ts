@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
 
   initRole(): void {
     this.players[0].setRole(Role.Delear);
-    this.players[1].setRole(Role.SmallBline);
+    this.players[1].setRole(Role.SmallBlind);
     this.players[2].setRole(Role.BigBlind);
     this.players[3].setRole(Role.Player);
     this.players[4].setRole(Role.Player);
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
     this.game.setRoundStarted(true);
 
     const smallBlindPlayer: Player = this.players.find(player => {
-      return player.getRole() === Role.SmallBline;
+      return player.getRole() === Role.SmallBlind;
     });
 
     smallBlindPlayer.setCashBalance(
@@ -79,6 +79,12 @@ export class AppComponent implements OnInit {
     console.log(this.players);
   }
 
+  onEndRoundClick(): void {
+    // Should run automatically, after all raise done.
+    this.updateCurrentRound();
+    this.game.setRoundStarted(false);
+  }
+
   onCheckClick(_p: Player): void {
     this.game.setPreviousPlayer(this.game.getCurrentPlayer());
     this.game.setCurrentPlayer(this.game.getNextPlayer());
@@ -92,22 +98,25 @@ export class AppComponent implements OnInit {
   }
 
   updateCurrentRound(): void {
-    this.game.getCurrentRound();
+    debugger
     if (this.game.getCurrentRound() === Round.Flop) {
       this.game.setCurrentRound(Round.Turn);
+      return;
     }
     if (this.game.getCurrentRound() === Round.Turn) {
       this.game.setCurrentRound(Round.River);
+      return;
     }
     if (this.game.getCurrentRound() === Round.River) {
       this.game.setCurrentRound(Round.Flop);
+      return;
     }
   }
 }
 
 enum Role {
   Delear = "Delear",
-  SmallBline = "SmallBline",
+  SmallBlind = "SmallBlind",
   BigBlind = "BigBlind",
   Player = "Player"
 }
