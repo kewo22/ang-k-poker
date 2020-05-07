@@ -4,7 +4,7 @@ export class Game {
   private activePlayers: Player[];
   private allPlayers: Player[];
   private currentRound: string;
-  private isRoundStarted: boolean;
+  private isRoundStarted: boolean = false;
   private blindAmount: BlindAmount = {
     smallBlind: 5,
     bigBlind: 10
@@ -26,6 +26,10 @@ export class Game {
 
   public setRoundStarted(_isRoundStarted: boolean): void {
     this.isRoundStarted = _isRoundStarted;
+  }
+
+  public getRoundStarted(): boolean {
+    return this.isRoundStarted;
   }
 
   public getBlindAmount(): BlindAmount {
@@ -90,6 +94,14 @@ export class Game {
 
   setTotalPotAmount(_tpa): void {
     this.totalPotAmount += _tpa;
+  }
+
+  setCurrentRound(_cr: string): void {
+    this.currentRound = _cr;
+  }
+
+  getCorrentRound(): string {
+    return this.currentRound;
   }
 }
 

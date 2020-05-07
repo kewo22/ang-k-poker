@@ -1,24 +1,29 @@
 <section>
 
-  <div class="palyer" *ngFor="let player of players" [style.background-color]="player.bgColor">
-    {{player.name}} - {{player.id}}
-    <br>
+	<div class="palyer" *ngFor="let player of players" [style.background-color]="player.bgColor">
+		{{player.name}} - {{player.id}}
+		<br>
     {{player.cashBalance}}
-    <br>
+		<br>
     {{player.role}}
-    <br>
-    <input>
-    <br>
-    <button [disabled]="game.getCurrentPlayer().id != player.id" (click)="onCheckClick(player)">Check</button>
-    <button [disabled]="game.getCurrentPlayer().id != player.id">Bet/Raise</button>
-    <button [disabled]="game.getCurrentPlayer().id != player.id">Fold</button>
-    <br>
-    <button *ngIf="player.isHost" [disabled]="game.isRoundStarted" (click)="onStartRoundClick()">
-      Start Round</button>
-  </div>
+		<br>
+		<input>
+		<br>
+		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id" (click)="onCheckClick(player)">Check</button>
+		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id">Bet/Raise</button>
+		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id">Fold</button>
+		<br>
 
-  <div class="pot">
-      {{game.getTotalPotAmount()}}
-  </div>
+		<button
+    *ngIf="player.isHost" [disabled]="game.getRoundStarted()" (click)="onStartRoundClick()">
+      Start Round
+    </button>
+
+
+	</div>
+
+	<div class="pot">
+		{{game.getTotalPotAmount()}}
+	</div>
 
 </section>

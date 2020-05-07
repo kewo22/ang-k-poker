@@ -26,6 +26,8 @@ export class AppComponent implements OnInit {
     const g = new Game(this.players);
     this.game = g;
 
+    this.game.setCurrentRound(Round.Flop);
+
     this.initRole();
     console.log(this.players);
     console.log(this.game);
@@ -88,13 +90,32 @@ export class AppComponent implements OnInit {
     console.log(this.game);
     console.log(this.players);
   }
+
+  updateCurrentRound(): void {
+    this.game.getCurrentRound();
+    if (this.game.getCurrentRound() === Round.Flop) {
+      this.game.setCurrentRound(Round.Turn);
+    }
+    if (this.game.getCurrentRound() === Round.Turn) {
+      this.game.setCurrentRound(Round.River);
+    }
+    if (this.game.getCurrentRound() === Round.River) {
+      this.game.setCurrentRound(Round.Flop);
+    }
+  }
 }
 
 enum Role {
-  Delear = "D",
-  SmallBline = "SB",
-  BigBlind = "BB",
-  Player = "P"
+  Delear = "Delear",
+  SmallBline = "SmallBline",
+  BigBlind = "BigBlind",
+  Player = "Player"
+}
+
+enum Round {
+  Flop = "Flop",
+  Turn = "Turn",
+  River = "River"
 }
 
 enum UserColorShaeds {
