@@ -9,7 +9,7 @@
 		<br>
 		<input #amountInput>
 		<br>
-		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id" (click)="onCheckClick(player)">Check</button>
+		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id || isCheckDisabled" (click)="onCheckClick(player)">Check</button>
 		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id">Call</button>
 		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id" (click)="onRaiseClick(amountInput)">Bet/Raise</button>
 		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id">Fold</button>

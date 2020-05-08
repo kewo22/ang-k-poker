@@ -11,6 +11,8 @@ export class AppComponent implements OnInit {
   players: Player[] = [];
   game: Game;
 
+  isCheckDisabled: boolean = false;
+
   ngOnInit() {
     const p1 = new Player("JAN", 1000, UserColorShaeds.Colour1);
     const p2 = new Player("FEB", 1000, UserColorShaeds.Colour2);
@@ -61,6 +63,8 @@ export class AppComponent implements OnInit {
     this.game.setNextPlayer(
       this.game.getNexrPlayer(this.game.getCurrentPlayer())
     );
+
+    this.isCheckDisabled = true;
 
     console.clear();
     console.log(this.game);
