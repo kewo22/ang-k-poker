@@ -1,14 +1,12 @@
 import { Player } from "./Player.class";
+import { BlindAmount } from "./Blind-Amount.interface";
 
 export class Game {
   private activePlayers: Player[];
   private allPlayers: Player[];
   private currentRound: string;
   private isRoundStarted: boolean = false;
-  private blindAmount: BlindAmount = {
-    smallBlind: 5,
-    bigBlind: 10
-  };
+  private blindAmount: BlindAmount;
   private blindPlayers: BlindPlayer = {
     smallBlind: null,
     bigBlind: null
@@ -22,8 +20,9 @@ export class Game {
 
   private minBetAmount: number = 0;
 
-  constructor(allPlayers: Player[]) {
+  constructor(allPlayers: Player[], blindAmount: BlindAmount) {
     this.activePlayers = allPlayers;
+    this.blindAmount = blindAmount;
   }
 
   public setRoundStarted(_isRoundStarted: boolean): void {
@@ -114,14 +113,9 @@ export class Game {
     this.minBetAmount = _mba;
   }
 
-  public getMinBetAmountRound(): number {
+  public getMinBetAmount(): number {
     return this.minBetAmount;
   }
-}
-
-interface BlindAmount {
-  smallBlind: number;
-  bigBlind: number;
 }
 
 interface BlindPlayer {

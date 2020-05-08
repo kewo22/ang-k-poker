@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Player } from "./Player.class";
 import { Game } from "./Game.class";
+import { BlindAmount } from "./Blind-Amount.interface";
 
 @Component({
   selector: "my-app",
@@ -25,7 +26,13 @@ export class AppComponent implements OnInit {
 
     this.initHost();
 
-    const g = new Game(this.players);
+    // From settings
+    const blindAmount: BlindAmount = {
+      smallBlind: 5,
+      bigBlind: 10
+    };
+
+    const g = new Game(this.players, blindAmount);
     this.game = g;
 
     this.game.setCurrentRound(Round.Flop);
@@ -65,6 +72,8 @@ export class AppComponent implements OnInit {
     );
 
     this.isCheckDisabled = true;
+
+    this.game.setMinBetAmount(this.game.getBlindAmount().bigBlind)
 
     console.clear();
     console.log(this.game);
