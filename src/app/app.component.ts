@@ -54,29 +54,34 @@ export class AppComponent implements OnInit {
   onStartRoundClick(): void {
     this.game.setRoundStarted(true);
 
-    const smallBlindPlayer: Player = this.players.find(player => {
-      return player.getRole() === Role.SmallBlind;
-    });
-
-    smallBlindPlayer.setCashBalance(
-      smallBlindPlayer.getCashBalance() - this.game.getBlindAmount().smallBlind
+    this.game.setPreviousPlayer(this.game.getBigBlindPlayer());
+    this.game.setCurrentPlayer(
+      this.game.getNexrPlayer(this.game.getBigBlindPlayer())
     );
-
-    this.game.setTotalPotAmount(this.game.getBlindAmount().smallBlind);
-
-    const bigBlindPlayer = this.players.find(player => {
-      return player.getRole() === Role.BigBlind;
-    });
-
-    this.game.setTotalPotAmount(this.game.getBlindAmount().bigBlind);
-
-    bigBlindPlayer.setCashBalance(
-      bigBlindPlayer.getCashBalance() - this.game.getBlindAmount().bigBlind
+    this.game.setNextPlayer(
+      this.game.getNexrPlayer(this.game.getCurrentPlayer())
     );
 
     console.clear();
     console.log(this.game);
     console.log(this.players);
+
+    this.game
+      .getSmallBlindPlayer()
+      .setCashBalance(
+        this.game.getSmallBlindPlayer().getCashBalance() -
+          this.game.getBlindAmount().smallBlind
+      );
+
+    this.game.setTotalPotAmount(this.game.getBlindAmount().smallBlind);
+
+    this.game.setTotalPotAmount(this.game.getBlindAmount().bigBlind);
+    this.game
+      .getBigBlindPlayer()
+      .setCashBalance(
+        this.game.getBigBlindPlayer().getCashBalance() -
+          this.game.getBlindAmount().bigBlind
+      );
   }
 
   onEndRoundClick(): void {
@@ -86,19 +91,22 @@ export class AppComponent implements OnInit {
   }
 
   onCheckClick(_p: Player): void {
-    this.game.setPreviousPlayer(this.game.getCurrentPlayer());
-    this.game.setCurrentPlayer(this.game.getNextPlayer());
-    this.game.setNextPlayer(
-      this.game.getNexrPlayer(this.game.getCurrentPlayer())
-    );
+    this.updateNextCurrentPreviousPlayer();
 
     console.clear();
     console.log(this.game);
     console.log(this.players);
   }
 
+  updateNextCurrentPreviousPlayer(): void {
+    this.game.setPreviousPlayer(this.game.getCurrentPlayer());
+    this.game.setCurrentPlayer(this.game.getNextPlayer());
+    this.game.setNextPlayer(
+      this.game.getNexrPlayer(this.game.getCurrentPlayer())
+    );
+  }
+
   updateCurrentRound(): void {
-    debugger
     if (this.game.getCurrentRound() === Round.Flop) {
       this.game.setCurrentRound(Round.Turn);
       return;
@@ -111,6 +119,12 @@ export class AppComponent implements OnInit {
       this.game.setCurrentRound(Round.Flop);
       return;
     }
+  }
+
+  onRaiseClick(amountInput: HTMLInputElement): void {
+    console.log(amountInput.value);
+    this.game.setTotalPotAmount(+amountInput.value);
+    this.updateNextCurrentPreviousPlayer();
   }
 }
 

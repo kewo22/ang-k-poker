@@ -13,12 +13,14 @@ export class Game {
     smallBlind: null,
     bigBlind: null
   };
-  private currentPlayer: Player;
-  private previousPlayer: Player;
-  private nextPlayer: Player;
+  private currentPlayer: Player = null;
+  private previousPlayer: Player = null;
+  private nextPlayer: Player = null;
 
   private roundBetAmount: number;
   private totalPotAmount: number = 0;
+
+  private minBetAmount: number = 0;
 
   constructor(allPlayers: Player[]) {
     this.activePlayers = allPlayers;
@@ -88,24 +90,32 @@ export class Game {
     }
   }
 
-  getTotalPotAmount(): number {
+  public getTotalPotAmount(): number {
     return this.totalPotAmount;
   }
 
-  setTotalPotAmount(_tpa): void {
+  public setTotalPotAmount(_tpa: number): void {
     this.totalPotAmount += _tpa;
   }
 
-  resetPotAmount(): void {
+  public resetPotAmount(): void {
     this.totalPotAmount = 0;
   }
 
-  setCurrentRound(_cr: string): void {
+  public setCurrentRound(_cr: string): void {
     this.currentRound = _cr;
   }
 
-  getCurrentRound(): string {
+  public getCurrentRound(): string {
     return this.currentRound;
+  }
+
+  public setMinBetAmount(_mba: number): void {
+    this.minBetAmount = _mba;
+  }
+
+  public getMinBetAmountRound(): number {
+    return this.minBetAmount;
   }
 }
 
