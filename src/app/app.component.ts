@@ -73,28 +73,23 @@ export class AppComponent implements OnInit {
 
     this.isCheckDisabled = true;
 
-    this.game.setMinBetAmount(this.game.getBlindAmount().bigBlind)
-
-    console.clear();
-    console.log(this.game);
-    console.log(this.players);
+    this.game.setMinBetAmount(this.game.getBlindAmount().bigBlind);
 
     this.game
       .getSmallBlindPlayer()
-      .setCashBalance(
-        this.game.getSmallBlindPlayer().getCashBalance() -
-          this.game.getBlindAmount().smallBlind
-      );
+      .setCashBalance(this.game.getBlindAmount().smallBlind, "-");
 
     this.game.setTotalPotAmount(this.game.getBlindAmount().smallBlind);
 
     this.game.setTotalPotAmount(this.game.getBlindAmount().bigBlind);
+
     this.game
       .getBigBlindPlayer()
-      .setCashBalance(
-        this.game.getBigBlindPlayer().getCashBalance() -
-          this.game.getBlindAmount().bigBlind
-      );
+      .setCashBalance(this.game.getBlindAmount().bigBlind, "-");
+
+    console.clear();
+    console.log(this.game);
+    console.log(this.players);
   }
 
   onEndRoundClick(): void {
@@ -138,6 +133,15 @@ export class AppComponent implements OnInit {
     console.log(amountInput.value);
     this.game.setTotalPotAmount(+amountInput.value);
     this.updateNextCurrentPreviousPlayer();
+  }
+
+  onCallClick(amount: number): void {
+    this.game.getCurrentPlayer().setCashBalance(amount, "-");
+    this.game.setTotalPotAmount(amount);
+    this.updateNextCurrentPreviousPlayer();
+    console.clear();
+    console.log(this.game);
+    console.log(this.players);
   }
 }
 
