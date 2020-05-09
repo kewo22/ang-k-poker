@@ -168,7 +168,13 @@ export class AppComponent implements OnInit {
   onCallClick(amount: number): void {
     this.game.getCurrentPlayer().setCashBalance(amount, "-");
     this.game.setTotalPotAmount(amount);
+
+    this.game.getCurrentPlayer().setIsCallBtnDisabled(true);
+
     this.updateNextCurrentPreviousPlayer();
+
+    this.game.getCurrentPlayer().setIsCallBtnDisabled(false);
+
     console.clear();
     console.log(this.game);
     console.log(this.players);
