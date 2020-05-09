@@ -103,9 +103,6 @@ export class AppComponent implements OnInit {
     this.game.setTotalPotAmount(this.game.getBlindAmount().bigBlind);
 
     console.clear();
-
-    console.log(otherPlayers);
-
     console.log(this.game);
     console.log(this.players);
   }
