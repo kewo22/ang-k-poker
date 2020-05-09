@@ -62,4 +62,20 @@ export class Player {
   public getIsCheckBtnDisabled(): boolean {
     return this.isCheckBtnDisabled;
   }
+
+  public setIsCallBtnDisabled(_icd: boolean): void {
+    this.isCallBtnDisabled = _icd;
+  }
+
+  public getIsCallBtnDisabled(): boolean {
+    return this.isCallBtnDisabled;
+  }
+
+  public setIsRaiseBtnDisabled(_ird: boolean): void {
+    this.isRaiseBtnDisabled = _ird;
+  }
+
+  public getIsRaiseBtnDisabled(): boolean {
+    return this.isRaiseBtnDisabled;
+  }
 }

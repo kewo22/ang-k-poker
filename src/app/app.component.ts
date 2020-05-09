@@ -99,6 +99,21 @@ export class AppComponent implements OnInit {
       p.setPlayerCallAmount(this.game.getMinBetAmount());
     });
 
+    this.players.forEach((p: Player) => {
+      p.setIsCheckBtnDisabled(true);
+      p.setIsRaiseBtnDisabled(true);
+    });
+
+    const otherThanCurrentPlayer: Player[] = this.players.filter((p: Player) => {
+      return p.id !== this.game.getCurrentPlayer().id;
+    });
+
+    otherThanCurrentPlayer.forEach((p: Player) => {
+      p.setIsCallBtnDisabled(true);
+    });
+
+    this.game.getBigBlindPlayer().setIsCallBtnDisabled(true);
+
     this.game.setTotalPotAmount(this.game.getBlindAmount().smallBlind);
     this.game.setTotalPotAmount(this.game.getBlindAmount().bigBlind);
 

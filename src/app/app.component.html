@@ -9,12 +9,12 @@
 		<br>
 		<input #amountInput>
 		<br>
-		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id" (click)="onCheckClick(player)">Check</button>
-		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id" (click)="onCallClick(player.getPlayerCallAmount())">
+		<button [disabled]="!game.getRoundStarted() || player.getIsCheckBtnDisabled()" (click)="onCheckClick(player)">Check</button>
+		<button [disabled]="!game.getRoundStarted() || player.getIsCallBtnDisabled()" (click)="onCallClick(player.getPlayerCallAmount())">
       Call<span *ngIf="player.getPlayerCallAmount()"> - {{player.getPlayerCallAmount()}} </span>
     </button>
-		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id" (click)="onRaiseClick(amountInput)">Bet/Raise</button>
-		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id">Fold</button>
+		<button [disabled]="!game.getRoundStarted() || player.getIsRaiseBtnDisabled()" (click)="onRaiseClick(amountInput)">Bet/Raise</button>
+		<button [disabled]="!game.getRoundStarted() ">Fold</button>
 		<br>
 
 		<button
