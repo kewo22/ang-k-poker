@@ -3,15 +3,15 @@
 	<div class="palyer" *ngFor="let player of players" [style.background-color]="player.bgColor">
 		{{player.name}} - {{player.id}}
 		<br>
-    {{player.cashBalance}}
+    {{player.getCashBalance()}}
 		<br>
     {{player.role}}
 		<br>
 		<input #amountInput>
 		<br>
 		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id || isCheckDisabled" (click)="onCheckClick(player)">Check</button>
-		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id" (click)="onCallClick(this.game.getMinBetAmount())">
-      Call<span *ngIf="this.game.getMinBetAmount()"> - {{this.game.getMinBetAmount()}}</span>
+		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id" >
+      Call<span *ngIf="true"> - </span>
     </button>
 		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id" (click)="onRaiseClick(amountInput)">Bet/Raise</button>
 		<button [disabled]="!game.getRoundStarted() || game.getCurrentPlayer().id != player.id">Fold</button>

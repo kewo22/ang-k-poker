@@ -5,7 +5,9 @@ export class Player {
   private role: string = "";
   private isHost: boolean = false;
   private bgColor: string = "";
+
   private playerCallAmount: number = 0;
+  private playerSpentAmount: number = 0;
 
   constructor(_name: string, _cb: number, _co: string) {
     this.id = _name + (Math.random() * 10000).toFixed().toString();
@@ -23,8 +25,13 @@ export class Player {
   }
 
   public setCashBalance(_cb: number, _op: string): void {
-    if (_op === "+") this.cashBalance += _cb;
-    if (_op === "-") this.cashBalance -= _cb;
+    if (_op === "+") {
+      this.cashBalance += _cb;
+    }
+    if (_op === "-") {
+      this.cashBalance -= _cb;
+      this.playerSpentAmount += _cb;
+    }
   }
 
   public getCashBalance(): number {
