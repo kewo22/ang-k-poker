@@ -15,10 +15,10 @@ export class Game {
   private previousPlayer: Player = null;
   private nextPlayer: Player = null;
 
-  private roundBetAmount: number;
   private totalPotAmount: number = 0;
 
   private minBetAmount: number = 0;
+  private roundExpectedAmount: number = 0;
 
   constructor(allPlayers: Player[], blindAmount: BlindAmount) {
     this.activePlayers = allPlayers;
@@ -111,10 +111,19 @@ export class Game {
 
   public setMinBetAmount(_mba: number): void {
     this.minBetAmount = _mba;
+    this.roundExpectedAmount = _mba * this.activePlayers.length;
   }
 
   public getMinBetAmount(): number {
     return this.minBetAmount;
+  }
+
+  public setRoundExpectedAmount(_rea: number): void {
+    this.roundExpectedAmount = _rea;
+  }
+
+  public getRoundExpectedAmount(): number {
+    return this.roundExpectedAmount;
   }
 }
 
