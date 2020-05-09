@@ -9,6 +9,10 @@ export class Player {
   private playerCallAmount: number = 0;
   private playerSpentAmount: number = 0;
 
+  private isCallBtnDisabled: boolean = false;
+  private isCheckRaisBtnDisabled: boolean = false;
+  private isFoldBtnDisabled: boolean = false;
+
   constructor(_name: string, _cb: number, _co: string) {
     this.id = _name + (Math.random() * 10000).toFixed().toString();
     this.name = _name;
