@@ -79,15 +79,33 @@ export class AppComponent implements OnInit {
       .getSmallBlindPlayer()
       .setCashBalance(this.game.getBlindAmount().smallBlind, "-");
 
-    this.game.setTotalPotAmount(this.game.getBlindAmount().smallBlind);
-
-    this.game.setTotalPotAmount(this.game.getBlindAmount().bigBlind);
+    this.game
+      .getSmallBlindPlayer()
+      .setPlayerCallAmount(this.game.getMinBetAmount());
 
     this.game
       .getBigBlindPlayer()
       .setCashBalance(this.game.getBlindAmount().bigBlind, "-");
 
+    this.game
+      .getBigBlindPlayer()
+      .setPlayerCallAmount(this.game.getMinBetAmount());
+
+    const otherPlayers: Player[] = this.players.filter((p: Player) => {
+      return p.getRole() === Role.Player || p.getRole() === Role.Delear;
+    });
+
+    otherPlayers.forEach((p: Player) => {
+      p.setPlayerCallAmount(this.game.getMinBetAmount());
+    });
+
+    this.game.setTotalPotAmount(this.game.getBlindAmount().smallBlind);
+    this.game.setTotalPotAmount(this.game.getBlindAmount().bigBlind);
+
     console.clear();
+
+    console.log(otherPlayers);
+
     console.log(this.game);
     console.log(this.players);
   }

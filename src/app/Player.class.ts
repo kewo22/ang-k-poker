@@ -38,15 +38,15 @@ export class Player {
     return this.cashBalance;
   }
 
-  public setIsHost(_isH: boolean) {
+  public setIsHost(_isH: boolean): void {
     this.isHost = _isH;
   }
 
-  public setPlayerCallAmount(_pca: number): void {
-    this.playerCallAmount = _pca;
+  public setPlayerCallAmount(_minBetAmount: number): void {
+    this.playerCallAmount = _minBetAmount - this.playerSpentAmount;
   }
 
-  public getPlayerCallAmount(_pca: number): number {
+  public getPlayerCallAmount(): number {
     return this.playerCallAmount;
   }
 }
