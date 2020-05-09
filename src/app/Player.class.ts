@@ -10,7 +10,8 @@ export class Player {
   private playerSpentAmount: number = 0;
 
   private isCallBtnDisabled: boolean = false;
-  private isCheckRaisBtnDisabled: boolean = false;
+  private isCheckBtnDisabled: boolean = false;
+  private isRaiseBtnDisabled: boolean = false;
   private isFoldBtnDisabled: boolean = false;
 
   constructor(_name: string, _cb: number, _co: string) {
@@ -52,5 +53,13 @@ export class Player {
 
   public getPlayerCallAmount(): number {
     return this.playerCallAmount;
+  }
+
+  public setIsCheckBtnDisabled(_icd: boolean): void {
+    this.isCheckBtnDisabled = _icd;
+  }
+
+  public getIsCheckBtnDisabled(): boolean {
+    return this.isCheckBtnDisabled;
   }
 }
