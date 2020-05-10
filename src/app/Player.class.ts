@@ -22,15 +22,15 @@ export class Player {
     this.bgColor = _co;
   }
 
-  public setRole(_ro: string) {
+  public setRole = (_ro: string): void => {
     this.role = _ro;
-  }
+  };
 
-  public getRole(): string {
+  public getRole = (): string => {
     return this.role;
-  }
+  };
 
-  public setCashBalance(_cb: number, _op: string): void {
+  public setCashBalance = (_cb: number, _op: string): void => {
     if (_op === "+") {
       this.cashBalance += _cb;
     }
@@ -38,53 +38,53 @@ export class Player {
       this.cashBalance -= _cb;
       this.playerSpentAmount += _cb;
     }
-  }
+  };
 
   public getCashBalance(): number {
     return this.cashBalance;
   }
 
-  public setIsHost(_isH: boolean): void {
+  public setIsHost = (_isH: boolean): void => {
     this.isHost = _isH;
-  }
+  };
 
-  public setPlayerCallAmount(_minBetAmount: number): void {
+  public setPlayerCallAmount = (_minBetAmount: number): void => {
     this.playerCallAmount = _minBetAmount - this.playerSpentAmount;
-  }
+  };
 
-  public getPlayerCallAmount(): number {
+  public getPlayerCallAmount = (): number => {
     return this.playerCallAmount;
-  }
+  };
 
-  public setIsCheckBtnDisabled(_icd: boolean): void {
+  public setIsCheckBtnDisabled = (_icd: boolean): void => {
     this.isCheckBtnDisabled = _icd;
-  }
+  };
 
-  public getIsCheckBtnDisabled(): boolean {
+  public getIsCheckBtnDisabled = (): boolean => {
     return this.isCheckBtnDisabled;
-  }
+  };
 
-  public setIsCallBtnDisabled(_icd: boolean): void {
+  public setIsCallBtnDisabled = (_icd: boolean): void => {
     this.isCallBtnDisabled = _icd;
-  }
+  };
 
-  public getIsCallBtnDisabled(): boolean {
+  public getIsCallBtnDisabled = (): boolean => {
     return this.isCallBtnDisabled;
-  }
+  };
 
-  public setIsRaiseBtnDisabled(_ird: boolean): void {
+  public setIsRaiseBtnDisabled = (_ird: boolean): void => {
     this.isRaiseBtnDisabled = _ird;
-  }
+  };
 
-  public getIsRaiseBtnDisabled(): boolean {
+  public getIsRaiseBtnDisabled = (): boolean => {
     return this.isRaiseBtnDisabled;
-  }
+  };
 
-  public setIsRaiseInputDisabled(_ird: boolean): void {
+  public setIsRaiseInputDisabled = (_ird: boolean): void => {
     this.isRaiseInputDisabled = _ird;
-  }
+  };
 
-  public getIsRaiseInputDisabled(): boolean {
+  public getIsRaiseInputDisabled = (): boolean => {
     return this.isRaiseInputDisabled;
-  }
+  };
 }

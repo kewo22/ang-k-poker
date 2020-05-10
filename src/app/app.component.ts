@@ -91,9 +91,11 @@ export class AppComponent implements OnInit {
       .getBigBlindPlayer()
       .setPlayerCallAmount(this.game.getMinBetAmount());
 
-    const otherPlayers: Player[] = this.players.filter((p: Player) => {
-      return p.getRole() === Role.Player || p.getRole() === Role.Delear;
-    });
+    const otherPlayers: Player[] = this.game
+      .getActivePlayers()
+      .filter((p: Player) => {
+        return p.getRole() === Role.Player || p.getRole() === Role.Delear;
+      });
 
     otherPlayers.forEach((p: Player) => {
       p.setPlayerCallAmount(this.game.getMinBetAmount());
@@ -104,11 +106,11 @@ export class AppComponent implements OnInit {
       p.setIsRaiseBtnDisabled(true);
     });
 
-    const otherThanCurrentPlayer: Player[] = this.players.filter(
-      (p: Player) => {
+    const otherThanCurrentPlayer: Player[] = this.game
+      .getActivePlayers()
+      .filter((p: Player) => {
         return p.id !== this.game.getCurrentPlayer().id;
-      }
-    );
+      });
 
     otherThanCurrentPlayer.forEach((p: Player) => {
       p.setIsCallBtnDisabled(true);
@@ -120,9 +122,7 @@ export class AppComponent implements OnInit {
     this.game.setTotalPotAmount(this.game.getBlindAmount().smallBlind);
     this.game.setTotalPotAmount(this.game.getBlindAmount().bigBlind);
 
-    console.clear();
-    console.log(this.game);
-    console.log(this.players);
+    this.logger();
   }
 
   onEndRoundClick(): void {
@@ -134,9 +134,7 @@ export class AppComponent implements OnInit {
   onCheckClick(_p: Player): void {
     this.updateNextCurrentPreviousPlayer();
 
-    console.clear();
-    console.log(this.game);
-    console.log(this.players);
+    this.logger();
   }
 
   updateNextCurrentPreviousPlayer(): void {
@@ -163,9 +161,34 @@ export class AppComponent implements OnInit {
   }
 
   onRaiseClick(amountInput: HTMLInputElement): void {
-    console.log(amountInput.value);
+    this.game.getCurrentPlayer().setCashBalance(+amountInput.value, "-");
     this.game.setTotalPotAmount(+amountInput.value);
+    this.game.setMinBetAmount(+amountInput.value);
+
+    this.game.getCurrentPlayer().setIsCallBtnDisabled(true);
+    this.game.getCurrentPlayer().setIsRaiseInputDisabled(true);
+    this.game.getCurrentPlayer().setIsRaiseBtnDisabled(true);
+
     this.updateNextCurrentPreviousPlayer();
+
+    this.game.getCurrentPlayer().setIsCallBtnDisabled(false);
+    this.game.getCurrentPlayer().setIsRaiseInputDisabled(false);
+
+    this.game
+      .getCurrentPlayer()
+      .setPlayerCallAmount(this.game.getMinBetAmount());
+
+    const otherThanCurrentPlayer: Player[] = this.game
+      .getActivePlayers()
+      .filter((p: Player) => {
+        return p.id !== this.game.getCurrentPlayer().id;
+      });
+
+    otherThanCurrentPlayer.forEach((p: Player) => {
+      p.setPlayerCallAmount(this.game.getMinBetAmount());
+    });
+
+    this.logger();
   }
 
   onCallClick(amount: number): void {
@@ -179,20 +202,34 @@ export class AppComponent implements OnInit {
 
     this.game.getCurrentPlayer().setIsCallBtnDisabled(false);
     this.game.getCurrentPlayer().setIsRaiseInputDisabled(false);
-
-    console.clear();
-    console.log(this.game);
-    console.log(this.players);
   }
 
   onRaiseInputKeyUp(e: KeyboardEvent): void {
     const input: HTMLInputElement = e.target as HTMLInputElement;
     const value: number = +input.value;
-    if (value) {
+
+    // const charCode = e.which ? e.which : e.keyCode;
+    //   console.log(charCode)
+    // if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+    //   return false;
+    // } else {
+
+    if (value && value > this.game.getMinBetAmount()) {
       this.game.getCurrentPlayer().setIsRaiseBtnDisabled(false);
+      this.game.getCurrentPlayer().setIsCallBtnDisabled(true);
     } else {
       this.game.getCurrentPlayer().setIsRaiseBtnDisabled(true);
+      this.game.getCurrentPlayer().setIsCallBtnDisabled(false);
     }
+
+    // return true;
+    // }
+  }
+
+  private logger() {
+    console.clear();
+    console.log(this.game);
+    console.log(this.players);
   }
 }
 
