@@ -13,6 +13,7 @@ export class Player {
   private isCheckBtnDisabled: boolean = false;
   private isRaiseBtnDisabled: boolean = false;
   private isFoldBtnDisabled: boolean = false;
+  private isRaiseInputDisabled: boolean = false;
 
   constructor(_name: string, _cb: number, _co: string) {
     this.id = _name + (Math.random() * 10000).toFixed().toString();
@@ -77,5 +78,13 @@ export class Player {
 
   public getIsRaiseBtnDisabled(): boolean {
     return this.isRaiseBtnDisabled;
+  }
+
+  public setIsRaiseInputDisabled(_ird: boolean): void {
+    this.isRaiseInputDisabled = _ird;
+  }
+
+  public getIsRaiseInputDisabled(): boolean {
+    return this.isRaiseInputDisabled;
   }
 }

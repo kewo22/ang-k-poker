@@ -7,7 +7,7 @@
 		<br>
     {{player.role}}
 		<br>
-		<input #amountInput>
+		<input #amountInput (keyup)="onRaiseInputKeyUp($event)" [disabled]="!game.getRoundStarted() || player.getIsRaiseInputDisabled()">
 		<br>
 		<button [disabled]="!game.getRoundStarted() || player.getIsCheckBtnDisabled()" (click)="onCheckClick(player)">Check</button>
 		<button [disabled]="!game.getRoundStarted() || player.getIsCallBtnDisabled()" (click)="onCallClick(player.getPlayerCallAmount())">

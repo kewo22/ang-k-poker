@@ -104,12 +104,15 @@ export class AppComponent implements OnInit {
       p.setIsRaiseBtnDisabled(true);
     });
 
-    const otherThanCurrentPlayer: Player[] = this.players.filter((p: Player) => {
-      return p.id !== this.game.getCurrentPlayer().id;
-    });
+    const otherThanCurrentPlayer: Player[] = this.players.filter(
+      (p: Player) => {
+        return p.id !== this.game.getCurrentPlayer().id;
+      }
+    );
 
     otherThanCurrentPlayer.forEach((p: Player) => {
       p.setIsCallBtnDisabled(true);
+      p.setIsRaiseInputDisabled(true);
     });
 
     this.game.getBigBlindPlayer().setIsCallBtnDisabled(true);
@@ -170,14 +173,26 @@ export class AppComponent implements OnInit {
     this.game.setTotalPotAmount(amount);
 
     this.game.getCurrentPlayer().setIsCallBtnDisabled(true);
+    this.game.getCurrentPlayer().setIsRaiseInputDisabled(true);
 
     this.updateNextCurrentPreviousPlayer();
 
     this.game.getCurrentPlayer().setIsCallBtnDisabled(false);
+    this.game.getCurrentPlayer().setIsRaiseInputDisabled(false);
 
     console.clear();
     console.log(this.game);
     console.log(this.players);
+  }
+
+  onRaiseInputKeyUp(e: KeyboardEvent): void {
+    const input: HTMLInputElement = e.target as HTMLInputElement;
+    const value: number = +input.value;
+    if (value) {
+      this.game.getCurrentPlayer().setIsRaiseBtnDisabled(false);
+    } else {
+      this.game.getCurrentPlayer().setIsRaiseBtnDisabled(true);
+    }
   }
 }
 
