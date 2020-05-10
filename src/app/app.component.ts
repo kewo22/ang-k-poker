@@ -202,17 +202,34 @@ export class AppComponent implements OnInit {
 
     this.game.getCurrentPlayer().setIsCallBtnDisabled(false);
     this.game.getCurrentPlayer().setIsRaiseInputDisabled(false);
+
+    if (
+      this.game.getTotalPotAmount() === this.game.getRoundExpectedAmount() &&
+      this.game.getCurrentPlayer().getRole() === Role.BigBlind
+    ) {
+      this.game.getCurrentPlayer().setIsCallBtnDisabled(true);
+      this.game.getCurrentPlayer().setIsCheckBtnDisabled(false);
+      this.game.getCurrentPlayer().setIsRaiseInputDisabled(false);
+    }
+
+    if (
+      this.game.getTotalPotAmount() === this.game.getRoundExpectedAmount() &&
+      this.game.getCurrentPlayer().getRole() === Role.Player
+    ) {
+      this.game.getCurrentPlayer().setIsCallBtnDisabled(true);
+      this.game.getCurrentPlayer().setIsCheckBtnDisabled(true);
+      this.game.getCurrentPlayer().setIsRaiseInputDisabled(true);
+
+      alert("Round End !!");
+
+    }
+
+    this.logger();
   }
 
   onRaiseInputKeyUp(e: KeyboardEvent): void {
     const input: HTMLInputElement = e.target as HTMLInputElement;
     const value: number = +input.value;
-
-    // const charCode = e.which ? e.which : e.keyCode;
-    //   console.log(charCode)
-    // if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
-    //   return false;
-    // } else {
 
     if (value && value > this.game.getMinBetAmount()) {
       this.game.getCurrentPlayer().setIsRaiseBtnDisabled(false);
@@ -221,9 +238,6 @@ export class AppComponent implements OnInit {
       this.game.getCurrentPlayer().setIsRaiseBtnDisabled(true);
       this.game.getCurrentPlayer().setIsCallBtnDisabled(false);
     }
-
-    // return true;
-    // }
   }
 
   private logger() {
