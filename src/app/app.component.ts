@@ -132,9 +132,20 @@ export class AppComponent implements OnInit {
   }
 
   onCheckClick(_p: Player): void {
-    this.updateNextCurrentPreviousPlayer();
-
     this.logger();
+    if (
+      this.game.getTotalPotAmount() === this.game.getRoundExpectedAmount() &&
+      this.game.getCurrentPlayer().getRole() === Role.BigBlind
+    ) {
+      this.game.getCurrentPlayer().setIsCallBtnDisabled(true);
+      this.game.getCurrentPlayer().setIsCheckBtnDisabled(false);
+      this.game.getCurrentPlayer().setIsRaiseInputDisabled(false);
+      this.game.getCurrentPlayer().setIsCheckBtnDisabled(true);
+
+      alert("end game !!");
+    } else {
+      this.updateNextCurrentPreviousPlayer();
+    }
   }
 
   updateNextCurrentPreviousPlayer(): void {
@@ -163,7 +174,18 @@ export class AppComponent implements OnInit {
   onRaiseClick(amountInput: HTMLInputElement): void {
     this.game.getCurrentPlayer().setCashBalance(+amountInput.value, "-");
     this.game.setTotalPotAmount(+amountInput.value);
-    this.game.setMinBetAmount(+amountInput.value);
+
+    if (this.game.getCurrentPlayer().getRole() === Role.SmallBlind) {
+      this.game.setMinBetAmount(
+        +amountInput.value + this.game.getBlindAmount().smallBlind
+      );
+    } else if (this.game.getCurrentPlayer().getRole() === Role.BigBlind) {
+      this.game.setMinBetAmount(
+        +amountInput.value + this.game.getBlindAmount().bigBlind
+      );
+    } else {
+      this.game.setMinBetAmount(+amountInput.value);
+    }
 
     this.game.getCurrentPlayer().setIsCallBtnDisabled(true);
     this.game.getCurrentPlayer().setIsRaiseInputDisabled(true);
@@ -203,25 +225,31 @@ export class AppComponent implements OnInit {
     this.game.getCurrentPlayer().setIsCallBtnDisabled(false);
     this.game.getCurrentPlayer().setIsRaiseInputDisabled(false);
 
+    // Initial round without no one raise
     if (
       this.game.getTotalPotAmount() === this.game.getRoundExpectedAmount() &&
       this.game.getCurrentPlayer().getRole() === Role.BigBlind
     ) {
-      this.game.getCurrentPlayer().setIsCallBtnDisabled(true);
-      this.game.getCurrentPlayer().setIsCheckBtnDisabled(false);
-      this.game.getCurrentPlayer().setIsRaiseInputDisabled(false);
+      if (this.game.getBlindAmount().bigBlind === this.game.getMinBetAmount()) {
+        this.game.getCurrentPlayer().setIsCallBtnDisabled(true);
+        this.game.getCurrentPlayer().setIsCheckBtnDisabled(false);
+        this.game.getCurrentPlayer().setIsRaiseInputDisabled(false);
+      } else {
+        alert("ENDDD");
+      }
     }
 
     if (
       this.game.getTotalPotAmount() === this.game.getRoundExpectedAmount() &&
-      this.game.getCurrentPlayer().getRole() === Role.Player
+      (this.game.getCurrentPlayer().getRole() === Role.Player ||
+        this.game.getCurrentPlayer().getRole() === Role.Delear ||
+        this.game.getCurrentPlayer().getRole() === Role.SmallBlind)
     ) {
       this.game.getCurrentPlayer().setIsCallBtnDisabled(true);
       this.game.getCurrentPlayer().setIsCheckBtnDisabled(true);
       this.game.getCurrentPlayer().setIsRaiseInputDisabled(true);
 
-      alert("Round End !!");
-
+      alert("Round End !!!");
     }
 
     this.logger();
