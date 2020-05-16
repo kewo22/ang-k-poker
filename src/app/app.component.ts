@@ -109,7 +109,7 @@ export class AppComponent implements OnInit {
     const otherThanCurrentPlayer: Player[] = this.game
       .getActivePlayers()
       .filter((p: Player) => {
-        return p.id !== this.game.getCurrentPlayer().id;
+        return p.getId() !== this.game.getCurrentPlayer().getId();
       });
 
     otherThanCurrentPlayer.forEach((p: Player) => {

@@ -22,6 +22,10 @@ export class Player {
     this.bgColor = _co;
   }
 
+  public getId = (): string => {
+    return this.id;
+  };
+
   public setRole = (_ro: string): void => {
     this.role = _ro;
   };
