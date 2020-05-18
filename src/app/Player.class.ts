@@ -44,6 +44,10 @@ export class Player {
     }
   };
 
+  public resetSpentAmount = (): void => {
+    this.playerSpentAmount = 0;
+  };
+
   public getCashBalance(): number {
     return this.cashBalance;
   }

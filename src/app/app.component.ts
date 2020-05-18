@@ -61,6 +61,22 @@ export class AppComponent implements OnInit {
   }
 
   onStartRoundClick(): void {
+    if (this.game.getCurrentRound() === Round.Flop) {
+      this.startFlop();
+    }
+    if (this.game.getCurrentRound() === Round.Turn) {
+      this.startTurn();
+    }
+    if (this.game.getCurrentRound() === Round.River) {
+    }
+
+    
+
+    this.logger();
+  }
+
+  startFlop(): void {
+
     this.game.setRoundStarted(true);
 
     this.game.setPreviousPlayer(this.game.getBigBlindPlayer());
@@ -122,13 +138,21 @@ export class AppComponent implements OnInit {
     this.game.setTotalPotAmount(this.game.getBlindAmount().smallBlind);
     this.game.setTotalPotAmount(this.game.getBlindAmount().bigBlind);
 
-    this.logger();
+  }
+
+  startTurn():void {
+    this.game.setRoundStarted(true);
+    debugger
   }
 
   onEndRoundClick(): void {
     // Should run automatically, after all raise done.
     this.updateCurrentRound();
     this.game.setRoundStarted(false);
+    this.game.getActivePlayers().forEach((p:Player) => {
+      p.resetSpentAmount();
+      p.setPlayerCallAmount(0);
+    })
   }
 
   onCheckClick(_p: Player): void {

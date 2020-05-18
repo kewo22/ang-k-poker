@@ -87,7 +87,7 @@ export class Game {
 
   public getNexrPlayer = (_p: Player): Player => {
     const i = this.activePlayers.findIndex((player: Player) => {
-      return player.id === _p.id;
+      return player.getId() === _p.getId();
     });
 
     if (this.activePlayers[i + 1]) {
