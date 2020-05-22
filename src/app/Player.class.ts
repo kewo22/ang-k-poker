@@ -1,3 +1,5 @@
+import { PlayerSpentAmountInRound } from "./Player-Spent-Amount-In-Round.interface";
+
 export class Player {
   private id: string = "";
   private name: string = "";
@@ -8,6 +10,8 @@ export class Player {
 
   private playerCallAmount: number = 0;
   private playerSpentAmount: number = 0;
+  private playerSpentAmountInShuffle: any[] = [];
+  private playerSpentAmountInRound: PlayerSpentAmountInRound[] = [];
 
   private isCallBtnDisabled: boolean = false;
   private isCheckBtnDisabled: boolean = false;
@@ -95,4 +99,35 @@ export class Player {
   public getIsRaiseInputDisabled = (): boolean => {
     return this.isRaiseInputDisabled;
   };
+
+  public setPlayerSpentAmountInShuffle = (_ird: boolean): void => {
+    this.isRaiseInputDisabled = _ird;
+  };
+
+  public getPlayerSpentAmountInShuffle = (): boolean => {
+    return this.isRaiseInputDisabled;
+  };
+
+  public setPlayerSpentAmountInRound = (_psair: PlayerSpentAmountInRound): void => {
+    this.playerSpentAmountInRound.push(_psair);
+  };
+
+  public resetPlayerSpentAmountInRound = (): void => {
+    this.playerSpentAmountInRound = [];
+  };
+
+  public getPlayerSpentAmountInRound = (): PlayerSpentAmountInRound[] => {
+    return this.playerSpentAmountInRound;
+  };
 }
+
+// interface PlayerSpentAmountInShuffle {
+//   amount: number;
+//   shuffleNo: number;
+//   roundBreakDown: PlayerSpentAmountInRound[];
+// }
+
+// interface PlayerSpentAmountInRound {
+//   amount: number;
+//   round: string;
+// }

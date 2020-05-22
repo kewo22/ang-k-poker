@@ -20,6 +20,8 @@ export class Game {
   private minBetAmount: number = 0;
   private roundExpectedAmount: number = 0;
 
+  private shuffleCount: number = 0;
+
   constructor(allPlayers: Player[], blindAmount: BlindAmount) {
     this.activePlayers = allPlayers;
     this.blindAmount = blindAmount;
@@ -132,6 +134,16 @@ export class Game {
 
   public getRoundExpectedAmount = (): number => {
     return this.roundExpectedAmount;
+  };
+
+  // CHECK THIS
+  public setShuffleCount = (_c: number): void => {
+    this.shuffleCount += _c;
+  };
+
+  // CHECK THIS
+  public getShuffleCount = (): number => {
+    return this.shuffleCount;
   };
 }
 
