@@ -14,7 +14,7 @@
       Call<span *ngIf="player.getPlayerCallAmount()"> - {{player.getPlayerCallAmount()}} </span>
     </button>
 		<button [disabled]="!game.getRoundStarted() || player.getIsRaiseBtnDisabled()" (click)="onRaiseClick(amountInput)">Bet/Raise</button>
-		<button [disabled]="!game.getRoundStarted() ">Fold</button>
+		<button [disabled]="!game.getRoundStarted()" (click)="onFoldCkick(player)">Fold</button>
 		<br>
 
 		<button

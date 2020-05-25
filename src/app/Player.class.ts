@@ -52,6 +52,10 @@ export class Player {
     this.playerSpentAmount = 0;
   };
 
+  public getPlayerSpentAmount = (): number => {
+    return this.playerSpentAmount;
+  };
+
   public getCashBalance(): number {
     return this.cashBalance;
   }
@@ -108,7 +112,9 @@ export class Player {
     return this.isRaiseInputDisabled;
   };
 
-  public setPlayerSpentAmountInRound = (_psair: PlayerSpentAmountInRound): void => {
+  public setPlayerSpentAmountInRound = (
+    _psair: PlayerSpentAmountInRound
+  ): void => {
     this.playerSpentAmountInRound.push(_psair);
   };
 

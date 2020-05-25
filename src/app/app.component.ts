@@ -74,7 +74,7 @@ export class AppComponent implements OnInit {
   }
 
   startFlop(): void {
-    this.game.setShuffleCount(1);
+    this.game.setShuffleCount();
     this.game.setRoundStarted(true);
 
     this.game.setPreviousPlayer(this.game.getBigBlindPlayer());
@@ -146,6 +146,10 @@ export class AppComponent implements OnInit {
     // Should run automatically, after all raise done.
     this.game.setRoundStarted(false);
     this.game.getActivePlayers().forEach((p: Player) => {
+      p.setPlayerSpentAmountInRound({
+        amount: p.getPlayerSpentAmount(),
+        round: this.game.getCurrentRound()
+      });
       p.resetSpentAmount();
       p.setPlayerCallAmount(0);
     });
@@ -289,11 +293,14 @@ export class AppComponent implements OnInit {
     }
   }
 
-  onFlopClick(): void {
+  onFoldCkick(_player: Player): void {
+    console.log(_player)
+    debugger
     // set active players
     // round expected amount
     // set round spent amount
     // set shuffle spent amount
+    // // disable all btns
   }
 
   private logger() {

@@ -137,8 +137,8 @@ export class Game {
   };
 
   // CHECK THIS
-  public setShuffleCount = (_c: number): void => {
-    this.shuffleCount += _c;
+  public setShuffleCount = (): void => {
+    this.shuffleCount += 1;
   };
 
   // CHECK THIS
